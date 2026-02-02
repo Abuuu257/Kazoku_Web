@@ -61,7 +61,7 @@
             <div class="relative">
                 <x-text-input id="password" 
                     class="block mt-1 w-full px-4 py-2.5 rounded-2xl border-slate-200 bg-slate-50/50 focus:bg-white focus:border-[#78350f] focus:ring-4 focus:ring-[#78350f]/5 transition-all outline-none pr-12"
-                    :type="show ? 'text' : 'password'"
+                    x-bind:type="show ? 'text' : 'password'"
                     name="password"
                     required 
                     autocomplete="new-password"
@@ -85,7 +85,7 @@
             <div class="relative">
                 <x-text-input id="password_confirmation" 
                     class="block mt-1 w-full px-4 py-2.5 rounded-2xl border-slate-200 bg-slate-50/50 focus:bg-white focus:border-[#78350f] focus:ring-4 focus:ring-[#78350f]/5 transition-all outline-none pr-12"
-                    :type="show ? 'text' : 'password'"
+                    x-bind:type="show ? 'text' : 'password'"
                     name="password_confirmation" 
                     required 
                     autocomplete="new-password"

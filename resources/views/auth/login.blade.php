@@ -37,7 +37,7 @@
             <div class="relative">
                 <x-text-input id="password" 
                     class="block mt-1 w-full px-4 py-3 rounded-xl border-slate-200 bg-slate-50 focus:bg-white focus:border-[#78350f] focus:ring-2 focus:ring-[#78350f]/10 transition-all input-glow pr-12"
-                    :type="show ? 'text' : 'password'"
+                    x-bind:type="show ? 'text' : 'password'"
                     name="password"
                     required 
                     autocomplete="current-password"
