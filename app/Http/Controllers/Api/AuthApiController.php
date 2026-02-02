@@ -114,4 +114,68 @@ class AuthApiController extends Controller
              'message' => 'Successfully logged out'
         ]);
     }
+
+    /**
+     * Update User Profile
+     * @param Request $request
+     * @return User
+     */
+    public function updateProfile(Request $request)
+    {
+        try {
+            $user = $request->user();
+
+            $validateUser = Validator::make($request->all(), [
+                'name' => 'sometimes|required',
+                'username' => 'sometimes|required|unique:users,username,' . $user->id,
+                'email' => 'sometimes|required|email|unique:users,email,' . $user->id,
+                'profile_image' => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048'
+            ]);
+
+            if($validateUser->fails()){
+                return response()->json([
+                    'status' => false,
+                    'message' => 'validation error',
+                    'errors' => $validateUser->errors()
+                ], 401);
+            }
+
+            // Update basic fields
+            if ($request->has('name')) {
+                $user->name = $request->name;
+            }
+            if ($request->has('username')) {
+                $user->username = $request->username;
+            }
+            if ($request->has('email')) {
+                $user->email = $request->email;
+            }
+
+            // Handle profile image upload
+            if ($request->hasFile('profile_image')) {
+                // Delete old image if exists
+                if ($user->profile_image && \Storage::disk('public')->exists($user->profile_image)) {
+                    \Storage::disk('public')->delete($user->profile_image);
+                }
+
+                // Store new image
+                $path = $request->file('profile_image')->store('profile_images', 'public');
+                $user->profile_image = $path;
+            }
+
+            $user->save();
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Profile Updated Successfully',
+                'user' => $user
+            ], 200);
+
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => $th->getMessage()
+            ], 500);
+        }
+    }
 }
