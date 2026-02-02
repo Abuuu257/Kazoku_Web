@@ -75,18 +75,28 @@ class CheckoutController extends Controller
             'status' => 'pending'
         ]);
 
-        // Init Stripe
-        \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
+        try {
+            // Init Stripe
+            \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
 
-        $checkout_session = \Stripe\Checkout\Session::create([
-            'payment_method_types' => ['card'],
-            'line_items' => $lineItems,
-            'mode' => 'payment',
-            'success_url' => route('checkout.success', ['order_id' => $order->id]) . '?session_id={CHECKOUT_SESSION_ID}',
-            'cancel_url' => route('checkout.cancel', ['order_id' => $order->id]),
-        ]);
+            $checkout_session = \Stripe\Checkout\Session::create([
+                'payment_method_types' => ['card'],
+                'line_items' => $lineItems,
+                'mode' => 'payment',
+                'success_url' => route('checkout.success', ['order_id' => $order->id]) . '?session_id={CHECKOUT_SESSION_ID}',
+                'cancel_url' => route('checkout.cancel', ['order_id' => $order->id]),
+            ]);
 
-        return redirect($checkout_session->url);
+            return redirect($checkout_session->url);
+        } catch (\Exception $e) {
+            // Log error for debugging
+            \Illuminate\Support\Facades\Log::error('Stripe Checkout Error: ' . $e->getMessage());
+            
+            // Delete the pending order so we don't have junk data
+            $order->delete();
+
+            return redirect()->route('cart.index')->with('error', 'Payment initialization failed: ' . $e->getMessage());
+        }
     }
 
     public function success(Request $request)
