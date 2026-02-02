@@ -42,11 +42,12 @@
             <h1 class="text-4xl font-serif font-bold text-slate-900 mb-4">Order Confirmed!</h1>
             <p class="text-slate-500 mb-8 leading-relaxed">Thank you for your purchase. We've received your order and are getting it ready for shipment. Your furry friend will be happy soon!</p>
             
+            @if(count($items) > 0)
             <div class="space-y-4 mb-10">
                 @foreach($items as $item)
                 <div class="bg-slate-50 rounded-2xl p-4 flex items-center gap-4 text-left border border-slate-100">
                     <div class="w-16 h-16 bg-white rounded-xl overflow-hidden p-1 flex-shrink-0">
-                        <img src="{{ Str::startsWith($item['image'], 'data:') ? $item['image'] : asset('images/' . $item['image']) }}" alt="{{ $item['name'] }}" class="w-full h-full object-contain">
+                        <img src="{{ str_starts_with($item['image'], 'data:') ? $item['image'] : asset('images/' . $item['image']) }}" alt="{{ $item['name'] }}" class="w-full h-full object-contain">
                     </div>
                     <div class="flex-grow">
                         <h4 class="font-bold text-slate-900">{{ $item['name'] }}</h4>
@@ -58,6 +59,7 @@
                 </div>
                 @endforeach
             </div>
+            @endif
 
             <div class="pt-6 border-t border-slate-100 mb-10 flex justify-between items-center text-slate-900">
                 <span class="text-xl font-bold">Total Paid</span>

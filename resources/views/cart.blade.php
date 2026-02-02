@@ -111,6 +111,14 @@
     <!-- Section Spacer -->
     <div style="height: 110px; width: 100%; display: block;"></div>
 
+    @if(session('error'))
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
+            <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl relative" role="alert">
+                <span class="block sm:inline font-bold">{{ session('error') }}</span>
+            </div>
+        </div>
+    @endif
+
     <main class="flex-grow flex flex-col" style="flex: 1 0 auto;">
         @php $total = 0; @endphp
         
