@@ -4,6 +4,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\ProductApiController;
+use App\Http\Controllers\Api\AuthApiController;
+
+Route::post('/auth/register', [AuthApiController::class, 'register']);
+Route::post('/auth/login', [AuthApiController::class, 'login']);
+Route::post('/auth/logout', [AuthApiController::class, 'logout'])->middleware('auth:sanctum');
 
 Route::get('/user', function (Request $request) {
     return $request->user();
