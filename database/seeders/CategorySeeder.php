@@ -12,9 +12,20 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\Category::create(['name' => 'Dogs']);
-        \App\Models\Category::create(['name' => 'Cats']);
-        \App\Models\Category::create(['name' => 'Birds']);
-        \App\Models\Category::create(['name' => 'Small Pets']);
+        $categories = [
+            'Dogs',
+            'Cats',
+            'Birds',
+            'Small Pets',
+            'Food & Nutrition',
+            'Toys & Enrichment',
+            'Accessories',
+            'Healthcare',
+            'Grooming'
+        ];
+
+        foreach ($categories as $category) {
+            \App\Models\Category::firstOrCreate(['name' => $category]);
+        }
     }
 }
