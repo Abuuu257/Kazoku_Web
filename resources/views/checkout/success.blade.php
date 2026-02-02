@@ -64,7 +64,9 @@
                 <span class="text-3xl font-black text-[#78350f]">${{ number_format($totalAmount, 2) }}</span>
             </div>
 
+            <div class="flex flex-col space-y-4">
                 <a href="{{ route('products.index') }}" class="w-full py-4 bg-[#78350f] text-white font-bold rounded-2xl hover:scale-[1.02] active:scale-[0.98] transition-all shadow-xl shadow-[#78350f]/20">Continue Shopping</a>
+                <a href="{{ url('/dashboard') }}" class="w-full py-4 bg-white border border-slate-200 text-slate-600 font-bold rounded-2xl hover:bg-slate-50 transition-all">Go to My Dashboard</a>
             </div>
         </div>
         </div>
