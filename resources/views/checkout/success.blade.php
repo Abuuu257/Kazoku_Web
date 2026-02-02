@@ -46,7 +46,7 @@
                 @foreach($items as $item)
                 <div class="bg-slate-50 rounded-2xl p-4 flex items-center gap-4 text-left border border-slate-100">
                     <div class="w-16 h-16 bg-white rounded-xl overflow-hidden p-1 flex-shrink-0">
-                        <img src="{{ asset('images/' . $item['image']) }}" alt="{{ $item['name'] }}" class="w-full h-full object-contain">
+                        <img src="{{ Str::startsWith($item['image'], 'data:') ? $item['image'] : asset('images/' . $item['image']) }}" alt="{{ $item['name'] }}" class="w-full h-full object-contain">
                     </div>
                     <div class="flex-grow">
                         <h4 class="font-bold text-slate-900">{{ $item['name'] }}</h4>

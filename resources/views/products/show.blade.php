@@ -133,7 +133,7 @@
                     <div class="w-full md:w-5/12 flex-shrink-0 flex flex-col product-image-column">
                         <div class="flex items-center justify-center bg-slate-50 rounded-2xl p-6 border border-slate-100 relative overflow-hidden h-[400px] lg:h-[500px]">
                             <img 
-                                src="{{ asset('images/' . $product->image_url) }}" 
+                                src="{{ Str::startsWith($product->image_url, 'data:') ? $product->image_url : asset('images/' . $product->image_url) }}" 
                                 alt="{{ $product->name }}" 
                                 class="w-full h-full object-contain drop-shadow-xl z-10 relative"
                             >

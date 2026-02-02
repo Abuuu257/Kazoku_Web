@@ -75,7 +75,7 @@
                             <tr class="group hover:bg-[#78350f]/[0.02] transition-colors">
                                 <td class="px-6 py-4 whitespace-nowrap align-middle">
                                     <div class="flex-shrink-0 bg-slate-100 rounded-xl overflow-hidden border border-slate-100 shadow-sm" style="width: 100px; height: 100px;">
-                                        <img class="w-full h-full object-cover" src="{{ asset('images/' . $product->image_url) }}" alt="{{ $product->name }}">
+                                        <img class="w-full h-full object-cover" src="{{ Str::startsWith($product->image_url, 'data:') ? $product->image_url : asset('images/' . $product->image_url) }}" alt="{{ $product->name }}">
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 align-middle">

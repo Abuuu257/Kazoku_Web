@@ -125,7 +125,7 @@
                             @php $total += ($details['price'] ?? 0) * ($details['quantity'] ?? 0) @endphp
                             <div class="bg-white rounded-3xl border border-slate-100 shadow-sm flex items-center" style="padding: 40px; gap: 40px;" data-id="{{ $id }}">
                                 <div class="flex-shrink-0 bg-slate-50 rounded-[2rem] overflow-hidden" style="width: 140px; height: 140px; padding: 16px;">
-                                    <img src="{{ asset('images/' . $details['image']) }}" alt="{{ $details['name'] }}" class="w-full h-full object-contain">
+                                    <img src="{{ Str::startsWith($details['image'], 'data:') ? $details['image'] : asset('images/' . $details['image']) }}" alt="{{ $details['name'] }}" class="w-full h-full object-contain">
                                 </div>
                                 
                                 <div class="flex-grow">

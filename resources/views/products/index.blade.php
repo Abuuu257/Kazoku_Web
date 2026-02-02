@@ -143,7 +143,7 @@
             @forelse($products as $product)
             <a href="{{ route('products.show', $product->id) }}" class="group relative bg-white border border-slate-100 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 flex-shrink-0 block text-left" style="width: 260px;" data-aos="fade-up" data-aos-delay="{{ ($loop->iteration % 4) * 100 }}">
                 <div class="relative w-full aspect-square overflow-hidden bg-[#faf8f5] p-6 flex items-center justify-center">
-                    <img src="{{ asset('images/' . $product->image_url) }}" alt="{{ $product->name }}" class="max-w-full max-h-full object-contain transition-transform duration-500 group-hover:scale-110" style="width: 200px; height: 200px;">
+                    <img src="{{ Str::startsWith($product->image_url, 'data:') ? $product->image_url : asset('images/' . $product->image_url) }}" alt="{{ $product->name }}" class="max-w-full max-h-full object-contain transition-transform duration-500 group-hover:scale-110" style="width: 200px; height: 200px;">
                 </div>
                 <div class="flex flex-col gap-2" style="padding: 20px 20px 24px 20px;">
                     <span class="text-[10px] font-bold tracking-widest text-[#d4a574] uppercase">{{ $product->category->name ?? 'Essentials' }}</span>

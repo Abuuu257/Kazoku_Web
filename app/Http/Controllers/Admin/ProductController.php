@@ -33,8 +33,10 @@ class ProductController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        $imageName = time().'.'.$request->image->extension();  
-        $request->image->move(public_path('images'), $imageName);
+        $file = $request->file('image');
+        $base64Image = base64_encode(file_get_contents($file->getRealPath()));
+        $memeType = $file->getMimeType();
+        $finalImage = 'data:' . $memeType . ';base64,' . $base64Image;
 
         \App\Models\Product::create([
             'name' => $request->name,
@@ -42,7 +44,7 @@ class ProductController extends Controller
             'price' => $request->price,
             'stock' => $request->stock,
             'category_id' => $request->category_id,
-            'image_url' => $imageName,
+            'image_url' => $finalImage,
         ]);
 
         return redirect()->route('admin.products.index')->with('success', 'Product created successfully.');
@@ -77,9 +79,10 @@ class ProductController extends Controller
         ];
 
         if ($request->hasFile('image')) {
-            $imageName = time().'.'.$request->image->extension();  
-            $request->image->move(public_path('images'), $imageName);
-            $data['image_url'] = $imageName;
+            $file = $request->file('image');
+            $base64Image = base64_encode(file_get_contents($file->getRealPath()));
+            $memeType = $file->getMimeType();
+            $data['image_url'] = 'data:' . $memeType . ';base64,' . $base64Image;
         }
 
         $product->update($data);

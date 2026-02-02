@@ -30,7 +30,7 @@ new class extends Component
         <div class="absolute z-50 w-full mt-2 bg-white rounded-xl shadow-2xl border border-slate-100 overflow-hidden">
             @foreach($results as $result)
                 <a href="{{ route('products.show', $result->id) }}" class="flex items-center gap-3 p-3 hover:bg-slate-50 transition-colors">
-                    <img src="{{ asset('images/' . $result->image_url) }}" class="w-10 h-10 object-contain bg-slate-100 rounded-lg">
+                    <img src="{{ Str::startsWith($result->image_url, 'data:') ? $result->image_url : asset('images/' . $result->image_url) }}" class="w-10 h-10 object-contain bg-slate-100 rounded-lg">
                     <div>
                         <div class="font-bold text-slate-900 text-sm">{{ $result->name }}</div>
                         <div class="text-xs text-[#78350f]">${{ $result->price }}</div>
